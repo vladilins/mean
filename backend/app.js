@@ -1,8 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const Post = require("./models/post");
 
 const app = express();
+
+mongoose.connect(
+  "mongodb+srv://vlad:vlad@cluster0-tt1nv.mongodb.net/test?retryWrites=true"
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
