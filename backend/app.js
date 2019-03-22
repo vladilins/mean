@@ -5,9 +5,16 @@ const Post = require("./models/post");
 
 const app = express();
 
-mongoose.connect(
-  "mongodb+srv://vlad:vlad@cluster0-tt1nv.mongodb.net/test?retryWrites=true"
-);
+mongoose
+  .connect(
+    "mongodb+srv://vlad:vlad@cluster0-tt1nv.mongodb.net/test?retryWrites=true"
+  )
+  .then(() => {
+    console.log("Conncted with DB");
+  })
+  .catch(() => {
+    console.log("DB faild");
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +37,7 @@ app.post("/api/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content
   });
-  console.log(post);
+  post.save();
   res.status(201).json({
     message: "Post added success"
   });
